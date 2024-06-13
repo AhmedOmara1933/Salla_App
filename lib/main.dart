@@ -10,10 +10,10 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
-  bool onBoarding = CacheHelper.getData(key: 'onBoarding');
-  String token = CacheHelper.getData(key: 'token');
-  print(onBoarding);
-  print(token);
+  // bool onBoarding = CacheHelper.getData(key: 'onBoarding');
+  // String token = CacheHelper.getData(key: 'token');
+  // print(onBoarding);
+  // print(token);
   // Widget widget;
   // if (onBoarding != Null) {
   //   if (token != Null) {

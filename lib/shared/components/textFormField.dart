@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/shared/styles/colors.dart';
 
 // ignore: must_be_immutable
 class DefaultTextFormField extends StatelessWidget {
@@ -37,7 +38,7 @@ class DefaultTextFormField extends StatelessWidget {
       this.suffixOnPressed,
       this.iconColor,
       this.textColor,
-      this.margin = 30.0,
+      this.margin = 20.0,
       this.contentPadding = false,
       this.focusedBorder = Colors.black,
       this.enabledBorder = Colors.black,
@@ -86,6 +87,18 @@ class DefaultTextFormField extends StatelessWidget {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(outlineInputBorder),
             ),
+            enabledBorder:OutlineInputBorder(
+                borderRadius: BorderRadius.circular(outlineInputBorder),
+                borderSide: BorderSide(
+                color: Colors.black.withOpacity(0.3)
+              )
+            ),
+              focusedBorder:OutlineInputBorder(
+                borderRadius: BorderRadius.circular(outlineInputBorder),
+                borderSide: BorderSide(
+                color: baseColor
+              )
+            )
           ),
         ),
       ),

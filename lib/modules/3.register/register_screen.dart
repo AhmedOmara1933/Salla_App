@@ -1,14 +1,14 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/layout/shop_home_layout.dart';
 import 'package:shop_app/modules/2.login/login_screen.dart';
 import 'package:shop_app/modules/3.register/register_cubit/shop_register_cubit.dart';
 import 'package:shop_app/modules/3.register/register_cubit/shop_register_state.dart';
 import 'package:shop_app/shared/function/function.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
+import 'package:shop_app/shared/styles/colors.dart';
+import '../../shared/components/default_button.dart';
 import '../../shared/components/textFormField.dart';
-import '../../shared/styles/colors.dart';
 
 // ignore: must_be_immutable
 class ShopRegisterScreen extends StatelessWidget {
@@ -25,16 +25,17 @@ class ShopRegisterScreen extends StatelessWidget {
       child: BlocConsumer<ShopRegisterCubit, ShopRegisterState>(
         listener: (context, state) {
           // TODO: implement listener
-          if(state is ShopRegisterSuccessState){
-            if(state.registerModel!.status!){
+          if (state is ShopRegisterSuccessState) {
+            if (state.registerModel!.status!) {
               print(state.registerModel!.message);
               print(state.registerModel!.data!.token);
-              CacheHelper.saveData(key: 'token', value: state.registerModel!.data!.token).then((value){
+              CacheHelper.saveData(
+                      key: 'token', value: state.registerModel!.data!.token)
+                  .then((value) {
                 navigateTo(context, ShopLoginScreen(), true);
               });
               flutterToast(msg: state.registerModel!.message!);
-            }
-            else{
+            } else {
               flutterToast(msg: state.registerModel!.message!);
             }
           }
@@ -44,10 +45,10 @@ class ShopRegisterScreen extends StatelessWidget {
           return Scaffold(
             body: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Form(
-                key: formKey,
-                child: Center(
-                  child: SingleChildScrollView(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -55,14 +56,12 @@ class ShopRegisterScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image(
-                              image: AssetImage(
-                                  'images/Screenshot 2024-02-04 174847.png'),
-                              height: 250.0,
+                              image: AssetImage('images/register.jpg'),
+                              height: 300.0,
+                              width: 300.0,
+                              fit: BoxFit.cover,
                             ),
                           ],
-                        ),
-                        SizedBox(
-                          height: 20.0,
                         ),
                         const Text(
                           'Register',
@@ -72,7 +71,7 @@ class ShopRegisterScreen extends StatelessWidget {
                           ),
                         ),
                         const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 15.0),
+                          padding: EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
                             'Register here to browse our hot offers',
                             style: TextStyle(
@@ -81,8 +80,8 @@ class ShopRegisterScreen extends StatelessWidget {
                                 color: Colors.grey),
                           ),
                         ),
+                        const SizedBox(height: 10.0),
                         DefaultTextFormField(
-                          margin: 10.0,
                           controller: nameController,
                           validate: (value) {
                             if (value!.isEmpty) {
@@ -95,7 +94,6 @@ class ShopRegisterScreen extends StatelessWidget {
                           prefixIcon: Icons.person_outlined,
                         ),
                         DefaultTextFormField(
-                          margin: 10.0,
                           controller: phoneController,
                           validate: (value) {
                             if (value!.isEmpty) {
@@ -108,10 +106,8 @@ class ShopRegisterScreen extends StatelessWidget {
                           prefixIcon: Icons.phone,
                         ),
                         DefaultTextFormField(
-                          margin: 10.0,
                           controller: emailController,
                           validate: (value) {
-
                             if (value!.isEmpty) {
                               return 'Email Address must be fill';
                             }
@@ -122,7 +118,6 @@ class ShopRegisterScreen extends StatelessWidget {
                           prefixIcon: Icons.email,
                         ),
                         DefaultTextFormField(
-                          margin: 10.0,
                           controller: passwordController,
                           obscureText: cubit.isPassword,
                           keyboardType: TextInputType.phone,
@@ -143,7 +138,8 @@ class ShopRegisterScreen extends StatelessWidget {
                         ),
                         ConditionalBuilder(
                           condition: state is! ShopRegisterLoadingState,
-                          builder: (context) => MaterialButton(
+                          builder: (context) => DefaultButton(
+                            text: 'Sign Up',
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
                                 cubit.userRegister(
@@ -153,39 +149,27 @@ class ShopRegisterScreen extends StatelessWidget {
                                     password: passwordController.text);
                               }
                             },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: baseColor,
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              width: double.infinity,
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 15.0),
-                              child: const Text(
-                                'Sign Up',
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
                           ),
-                          fallback: (context) => Center(child: CircularProgressIndicator()),
+                          fallback: (context) =>
+                              Center(child: CircularProgressIndicator(color: baseColor,)),
                         ),
-                        const SizedBox(height: 10.0),
+                        const SizedBox(height: 5.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
-                              'Do you have an account ',
+                              'Do have an account ? ',
                               style: TextStyle(
                                   fontSize: 16.0, fontWeight: FontWeight.bold),
                             ),
-                            TextButton(
+                            MaterialButton(
+                              padding: EdgeInsets.zero,
                               onPressed: () {
                                 navigateTo(context, ShopLoginScreen(), false);
                               },
                               child: Text(
-                                'Sign In',
-                                style: TextStyle(color: baseColor),
+                                'Sign In Now',
+                                style: TextStyle(color:baseColor),
                               ),
                             )
                           ],

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/shared/styles/colors.dart';
 import '../../models/12.get_cart_model.dart';
 import '../../shared/components/build_button_cart_item.dart';
 import '../../shared/cubit/shop_cubit.dart';
@@ -47,9 +48,9 @@ class BuildProductCartItem extends StatelessWidget {
                         CachedNetworkImage(
                           imageUrl: '${cartItems.product!.image}',
                           progressIndicatorBuilder: (context, url, progress) =>
-                              const Center(
+                               Center(
                             child: CircularProgressIndicator(
-                              color: Colors.blue,
+                              color: baseColor,
                             ),
                           ),
                           errorWidget: (context, url, error) =>
@@ -71,12 +72,14 @@ class BuildProductCartItem extends StatelessWidget {
                                 border: Border.all(
                                     color: Colors.black.withOpacity(0.2))),
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  cubit.decreaseQuantity(cartItems.product!.id);
+                                },
                                 padding: EdgeInsets.zero,
                                 icon: Icon(Icons.delete_outline)),
                           ),
                           Text(
-                            '1',
+                            '${cartItems.quantity}',
                             style: TextStyle(
                                 fontSize: 20.0, fontWeight: FontWeight.bold),
                           ),
@@ -85,7 +88,9 @@ class BuildProductCartItem extends StatelessWidget {
                                 border: Border.all(
                                     color: Colors.black.withOpacity(0.2))),
                             child: IconButton(
-                                onPressed: () {}, icon: Icon(Icons.add)),
+                                onPressed: () {
+                                  cubit.increaseQuantity(cartItems.product!.id);
+                                }, icon: Icon(Icons.add)),
                           ),
                         ],
                       ))
@@ -205,7 +210,7 @@ class BuildProductCartItem extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );

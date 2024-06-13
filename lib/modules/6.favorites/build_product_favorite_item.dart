@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/10.get_favorite_model.dart';
 import 'package:shop_app/shared/cubit/shop_cubit.dart';
 import 'package:shop_app/shared/cubit/shop_state.dart';
+import 'package:shop_app/shared/styles/colors.dart';
 
 class BuildProductFavoriteItem extends StatelessWidget {
   final FavoritesData favoritesData;
@@ -40,10 +41,9 @@ class BuildProductFavoriteItem extends StatelessWidget {
                     )),
                 child: CachedNetworkImage(
                   imageUrl: '${favoritesData.product!.image}',
-                  progressIndicatorBuilder: (context, url, progress) =>
-                      const Center(
+                  progressIndicatorBuilder: (context, url, progress) => Center(
                     child: CircularProgressIndicator(
-                      color: Colors.blue,
+                      color: baseColor,
                     ),
                   ),
                   errorWidget: (context, url, error) =>
@@ -95,6 +95,7 @@ class BuildProductFavoriteItem extends StatelessWidget {
                               width: 5.0,
                             ),
                             InkWell(
+                              borderRadius: BorderRadius.circular(100.0),
                               onTap: () {
                                 cubit.changeFavoritesData(
                                     productId: favoritesData.product!.id!);

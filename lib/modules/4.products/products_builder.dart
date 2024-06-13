@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/shared/cubit/shop_cubit.dart';
 import 'package:shop_app/shared/cubit/shop_state.dart';
+import 'package:shop_app/shared/styles/colors.dart';
 import '../../models/3.home_model.dart';
 import '../../shared/components/build_grid_product.dart';
 import '../../shared/components/build_list_category.dart';
@@ -31,7 +32,6 @@ class ProductsBuilder extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    
                     child: CarouselSlider(
                       items: model.data!.banners!
                           .map(
@@ -39,22 +39,22 @@ class ProductsBuilder extends StatelessWidget {
                               fit: BoxFit.cover,
                               imageUrl: '${e.image}',
                               progressIndicatorBuilder:
-                                  (context, url, progress) => const Center(
+                                  (context, url, progress) => Center(
                                 child: CircularProgressIndicator(
-                                  color: Colors.blue,
+                                  color: baseColor,
                                 ),
                               ),
                               errorWidget: (context, url, error) => Center(
                                   child: const CircularProgressIndicator()),
                             ),
-                      )
+                          )
                           .toList(),
                       options: CarouselOptions(
                         onPageChanged: (index, reason) {
                           cubit.changeIndex(index);
                         },
                         height: 150.0,
-                        viewportFraction:0.5,
+                        viewportFraction: 0.5,
                         initialPage: 0,
                         enableInfiniteScroll: true,
                         reverse: false,
@@ -77,7 +77,7 @@ class ProductsBuilder extends StatelessWidget {
                     height: 7.0,
                     width: 7.0,
                     count: model.data!.banners!.length,
-                    activeColor: Colors.blue,
+                    activeColor: baseColor,
                     index: cubit.Index,
                   ),
                   const SizedBox(
@@ -108,8 +108,7 @@ class ProductsBuilder extends StatelessWidget {
               Container(
                 height: 188.0,
                 child: ListView.separated(
-                  padding:
-                  EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => BuildListCategory(
@@ -147,8 +146,9 @@ class ProductsBuilder extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30.0)),
                 child: GridView.count(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  padding:EdgeInsets.symmetric(horizontal: 10.0, vertical: 25.0),
-                  physics:const NeverScrollableScrollPhysics(),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 25.0),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   crossAxisCount: 2,
                   crossAxisSpacing: 10.0,
@@ -156,9 +156,9 @@ class ProductsBuilder extends StatelessWidget {
                   childAspectRatio: 1 / 2.07,
                   children: List.generate(
                       model.data!.products!.length,
-                          (index) => BuildGridProduct(
-                        products: model.data!.products![index],
-                      )),
+                      (index) => BuildGridProduct(
+                            products: model.data!.products![index],
+                          )),
                 ),
               )
             ],

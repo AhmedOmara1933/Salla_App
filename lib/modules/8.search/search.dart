@@ -2,14 +2,16 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/shop_home_layout.dart';
+import 'package:shop_app/models/3.home_model.dart';
 import 'package:shop_app/modules/8.search/search_cubit/shop_search_cubit.dart';
 import 'package:shop_app/modules/8.search/search_cubit/shop_search_state.dart';
 import 'package:shop_app/shared/function/function.dart';
+import 'package:shop_app/shared/styles/colors.dart';
 import '../../shared/components/textFormField.dart';
 import 'build_product_search_item.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({super.key});
+   SearchScreen({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class SearchScreen extends StatelessWidget {
                 if (state is ShopSearchLoadingState)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal:20.0,vertical: 10.0),
-                    child: LinearProgressIndicator(),
+                    child: LinearProgressIndicator(color: baseColor,),
                   ),
                 // if (state is ShopSearchSuccessState)
                 //   Expanded(

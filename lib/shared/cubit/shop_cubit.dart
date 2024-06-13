@@ -14,7 +14,7 @@ import '../../modules/4.products/products_screen.dart';
 import '../../modules/5.categories/categories.dart';
 import '../../modules/6.favorites/favorites.dart';
 import '../../modules/7.cart/cart_screen.dart';
-import '../../modules/9.settings/settings.dart';
+import '../../modules/9.profile/profile.dart';
 import '../constants/constants.dart';
 
 class ShopCubit extends Cubit<ShopState> {
@@ -24,9 +24,8 @@ class ShopCubit extends Cubit<ShopState> {
   List screans = [
     const ProductsScreen(),
     CategoriesScreen(),
-    FavoritesScreen(),
     CartScreen(),
-    SettingsScreen(),
+    ProfileScreen(),
   ];
   int currentIndex = 0;
   int Index = 0;
@@ -108,8 +107,9 @@ class ShopCubit extends Cubit<ShopState> {
       url: PROFILE,
     ).then((value) {
       profileModel = ProfileModel.fromJson(value.data);
-      // print(profileModel!.data!.name);
-      // print(profileModel!.data!.phone);
+       print(profileModel!.data!.name);
+       print(profileModel!.data!.email);
+      print(profileModel!.data!.phone);
       emit(ShopSuccessProfileDataState(profileModel: profileModel));
     }).catchError((error) {
       print(error);
@@ -146,6 +146,7 @@ class ShopCubit extends Cubit<ShopState> {
 //////todo//////////////////////////////////GetFavoritesData///////////////////////////
 
   GetFavoritesModel? getFavoritesModel;
+
 
   void getFavoritesData() {
     emit(ShopLoadingGetFavoritesDataState());
@@ -198,4 +199,29 @@ class ShopCubit extends Cubit<ShopState> {
       emit(ShopErrorGetCartDataState(error: error.toString()));
     });
   }
+
+
+  void increaseQuantity(int productId) {
+    final cartItem = getCartModel?.data?.cartItems?.firstWhere((item) => item.product?.id == productId);
+    if (cartItem != null) {
+      cartItem.quantity = (cartItem.quantity ?? 0) + 1;
+      emit(ShopSuccessUpdateCartQuantityState()); // Emit state to update UI
+    }
+  }
+  void decreaseQuantity(int productId) {
+    final cartItem = getCartModel?.data?.cartItems?.firstWhere((item) => item.product?.id == productId);
+    if (cartItem != null && (cartItem.quantity ?? 1) > 1) {
+      cartItem.quantity = (cartItem.quantity ?? 1) - 1;
+      emit(ShopSuccessUpdateCartQuantityState()); // Emit state to update UI
+    }
+  }
+  // Method to calculate the total price of items in the cart
+  double getTotalPrice() {
+    double totalPrice = 0.0;
+    getCartModel?.data?.cartItems?.forEach((item) {
+      totalPrice += (item.product?.price ?? 0) * (item.quantity ?? 1);
+    });
+    return totalPrice;
+  }
 }
+

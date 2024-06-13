@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/4.category_model.dart';
 import 'package:shop_app/shared/function/function.dart';
+import 'package:shop_app/shared/styles/colors.dart';
 
 class CategoriesBuilder extends StatelessWidget {
   DataModel model;
@@ -39,9 +40,9 @@ class CategoriesBuilder extends StatelessWidget {
                     width: double.infinity,
                     imageUrl: '${model.image}',
                     progressIndicatorBuilder: (context, url, progress) =>
-                        const Center(
+                         Center(
                       child: CircularProgressIndicator(
-                        color: Colors.blue,
+                        color: baseColor,
                       ),
                     ),
                     errorWidget: (context, url, error) =>

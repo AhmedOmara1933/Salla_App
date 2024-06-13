@@ -18,18 +18,29 @@ class ShopHomeLayout extends StatelessWidget {
         var cubit = ShopCubit.get(context);
         return Scaffold(
             appBar: AppBar(
+              // title: Row(
+              //   children: [
+              //     // Text(
+              //     //   'Salla.eg',
+              //     //   style: TextStyle(color: Colors.black),
+              //     // ),
+              //     // Text(
+              //     //   'Hi ${cubit.profileModel!.data!.name}',
+              //     //   style: TextStyle(color: Colors.black),
+              //     // ),
+              //   ],
+              // ),
               title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // Text(
-                  //   'Salla.eg',
-                  //   style: TextStyle(color: Colors.black),
-                  // ),
-                  // Text(
-                  //   'Hi ${cubit.profileModel!.data!.name}',
-                  //   style: TextStyle(color: Colors.black),
-                  // ),
+                  Image(
+                    image: AssetImage('images/salla.eg-removebg-preview.png'),
+                    width: 150.0,
+                    fit: BoxFit.cover,
+                  ),
                 ],
               ),
+              titleSpacing: 0.0,
               actions: [
                 IconButton(
                   icon: Icon(Icons.notifications_none),
@@ -53,8 +64,6 @@ class ShopHomeLayout extends StatelessWidget {
                     icon: Icon(Icons.home_filled), label: 'Home'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.category_rounded), label: 'Categories'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.favorite), label: 'Favorite'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.shopping_cart), label: 'Cart'),
                 BottomNavigationBarItem(

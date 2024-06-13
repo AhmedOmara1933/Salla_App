@@ -87,7 +87,7 @@ class ShopErrorGetFavoritesDataState extends ShopState {
   ShopErrorGetFavoritesDataState({required this.error});
 }
 
-//////todo//////////////////////////////////ChangeFavoritesDataState///////////////////////////
+//////todo//////////////////////////////////ChangeCartDataState///////////////////////////
 
 class ShopLoadingChangeCartDataState extends ShopState {}
 
@@ -104,7 +104,7 @@ class ShopErrorChangeCartDataState extends ShopState {
 
   ShopErrorChangeCartDataState({required this.error});
 }
-//////todo//////////////////////////////////GetFavoritesDataState///////////////////////////
+//////todo//////////////////////////////////GetCartDataState///////////////////////////
 
 class ShopLoadingGetCartDataState extends ShopState {}
 
@@ -115,3 +115,5 @@ class ShopErrorGetCartDataState extends ShopState {
 
   ShopErrorGetCartDataState({required this.error});
 }
+
+class ShopSuccessUpdateCartQuantityState extends ShopState {}

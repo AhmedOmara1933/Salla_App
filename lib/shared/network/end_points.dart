@@ -7,3 +7,4 @@ const FAVORITES = 'favorites';
 const CART = 'carts';
 const SEARCH = 'products/search';
 const SETTINGS = 'settings';
+

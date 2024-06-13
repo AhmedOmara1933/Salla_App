@@ -1,3 +1,3 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
-Color baseColor=const Color(0xff7e83e6);
+Color baseColor = Colors.blue;

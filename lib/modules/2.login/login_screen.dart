@@ -7,6 +7,7 @@ import 'package:shop_app/shared/function/function.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:shop_app/shared/styles/colors.dart';
 import '../../layout/shop_home_layout.dart';
+import '../../shared/components/default_button.dart';
 import '../3.register/register_screen.dart';
 import 'login_cubit/shop_login_cubit.dart';
 import 'login_cubit/shop_login_state.dart';
@@ -29,11 +30,10 @@ class ShopLoginScreen extends StatelessWidget {
               CacheHelper.saveData(
                       key: 'token', value: state.loginModel!.data!.token)
                   .then((value) {
-                    token=state.loginModel!.data!.token!;
-                navigateTo(context, const ShopHomeLayout(), true);
+                token = state.loginModel!.data!.token!;
+                navigateTo(context, const ShopHomeLayout(), true );
               });
-            }
-            else {
+            } else {
               print(state.loginModel!.message);
               flutterToast(msg: state.loginModel!.message!);
             }
@@ -42,9 +42,6 @@ class ShopLoginScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = ShopLoginCubit().get(context);
           return Scaffold(
-            appBar: AppBar(
-              toolbarHeight: 0.0,
-            ),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Center(
@@ -58,13 +55,15 @@ class ShopLoginScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image(
-                              image: AssetImage('images/img.png'),
+                              image: AssetImage('images/login.jpg'),
                               height: 250.0,
+                              width: 340.0,
+                              fit: BoxFit.cover,
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 30.0,
+                          height: 20.0,
                         ),
                         const Text(
                           'Login',
@@ -83,7 +82,7 @@ class ShopLoginScreen extends StatelessWidget {
                                 color: Colors.grey),
                           ),
                         ),
-                        const SizedBox(height: 20.0),
+                        const SizedBox(height: 10.0),
                         DefaultTextFormField(
                           controller: cubit.email,
                           validate: (value) {
@@ -124,42 +123,30 @@ class ShopLoginScreen extends StatelessWidget {
                         ),
                         ConditionalBuilder(
                           condition: state is! ShopLoginLoadingState,
-                          builder: (context) => MaterialButton(
-                            onPressed: () {
+                          builder: (context) =>DefaultButton(
+                            text: 'Sign In',
+                            onPressed:(){
                               if (cubit.formKey.currentState!.validate()) {
                                 cubit.userLogin(
                                     email: cubit.email.text,
                                     password: cubit.password.text);
                               }
                             },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: baseColor,
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              width: double.infinity,
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 15.0),
-                              child: const Text(
-                                'Sign In',
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
                           ),
                           fallback: (context) =>
-                              const Center(child: CircularProgressIndicator()),
+                               Center(child: CircularProgressIndicator(color: baseColor,)),
                         ),
-                        const SizedBox(height: 10.0),
+                        const SizedBox(height: 5.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
-                              'Don\'t have an account ',
+                              'Don\'t have an account ? ',
                               style: TextStyle(
                                   fontSize: 16.0, fontWeight: FontWeight.bold),
                             ),
-                            TextButton(
+                            MaterialButton(
+                              padding: EdgeInsets.zero,
                               onPressed: () {
                                 navigateTo(
                                     context, ShopRegisterScreen(), false);

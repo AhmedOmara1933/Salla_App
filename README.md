@@ -155,3 +155,4 @@ iconColor: Colors.black,
 في حاله ال login الخطا لا تطلع في رساله error
 في حاله اضافه favorites بتبقي بطيئه في الاضافه  والازاله
 في حاله favorites لو ال list  فاضيه من favorites لازم تعرض حاجه ع الاقل text
+في حاله الزرار الي انا حاطه في favorite عشان يوديني علي products مش مظبوط 

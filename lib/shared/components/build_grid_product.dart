@@ -6,6 +6,7 @@ import 'package:shop_app/modules/4.products/products_details.dart';
 import 'package:shop_app/shared/cubit/shop_cubit.dart';
 import 'package:shop_app/shared/cubit/shop_state.dart';
 import 'package:shop_app/shared/function/function.dart';
+import 'package:shop_app/shared/styles/colors.dart';
 import '../../models/3.home_model.dart';
 
 // ignore: must_be_immutable
@@ -19,20 +20,25 @@ class BuildGridProduct extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopState>(
       listener: (context, state) {
         // TODO: implement listener
-        if (state is ShopSuccessChangeFavoritesDataState) {
-          if (state.changeFavoritesModel.status!) {
-            flutterToast(msg: state.changeFavoritesModel.message!);
-          } else {
-            flutterToast(msg: state.changeFavoritesModel.message!);
-          }
-        }
-        if (state is ShopSuccessChangeCartDataState) {
-          if (state.changeCartModel.status!) {
-            flutterToast(msg: state.changeCartModel.message!);
-          } else {
-            flutterToast(msg: state.changeCartModel.message!);
-          }
-        }
+        //هنا مكانهم غلط بيعمل Added successfully لل 20 item فالحل ان
+        // اعملها في صفحه الرئيسه product screen
+        // دي عشان اعمل add وعشان اعمل delete اعملها ف صغحه favorites
+        // if (state is ShopSuccessChangeFavoritesDataState) {
+        //   if (state.changeFavoritesModel.status!) {
+        //     print(state.changeFavoritesModel.message);
+        //     flutterToast(msg: state.changeFavoritesModel.message!);
+        //   } else {
+        //     print(state.changeFavoritesModel.message);
+        //     flutterToast(msg: state.changeFavoritesModel.message!);
+        //   }
+        // }
+        // if (state is ShopSuccessChangeCartDataState) {
+        //   if (state.changeCartModel.status!) {
+        //     flutterToast(msg: state.changeCartModel.message!);
+        //   } else {
+        //     flutterToast(msg: state.changeCartModel.message!);
+        //   }
+        // }
       },
       builder: (context, state) {
         var cubit = ShopCubit.get(context);
@@ -67,9 +73,9 @@ class BuildGridProduct extends StatelessWidget {
                             child: CachedNetworkImage(
                               imageUrl: '${products.image}',
                               progressIndicatorBuilder:
-                                  (context, url, progress) => const Center(
+                                  (context, url, progress) => Center(
                                 child: CircularProgressIndicator(
-                                  color: Colors.blue,
+                                  color: baseColor,
                                 ),
                               ),
                               errorWidget: (context, url, error) => Center(
@@ -122,7 +128,7 @@ class BuildGridProduct extends StatelessWidget {
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 15.0.sp,
-                                            color: Colors.blue),
+                                            color: baseColor),
                                       ),
                                       SizedBox(
                                         width: 5.0.w,
@@ -141,6 +147,7 @@ class BuildGridProduct extends StatelessWidget {
                                     ],
                                   ),
                                   InkWell(
+                                    borderRadius: BorderRadius.circular(100.0),
                                     onTap: () {
                                       cubit.changeFavoritesData(
                                           productId: products.id!);
@@ -178,11 +185,12 @@ class BuildGridProduct extends StatelessWidget {
                     child: CircleAvatar(
                         backgroundColor: Color(0xff4a9f51),
                         child: Icon(
-                          cubit.carts[products.id]!?Icons.shopping_cart:Icons.remove_shopping_cart,
+                          cubit.carts[products.id]!
+                              ? Icons.shopping_cart
+                              : Icons.remove_shopping_cart,
                           size: 30.0,
                           color: Colors.white,
-                        )
-                    ),
+                        )),
                   ),
                 )
               ],

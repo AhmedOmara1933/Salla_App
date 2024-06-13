@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/shared/styles/colors.dart';
 import '../../models/4.category_model.dart';
 
 // ignore: must_be_immutable
@@ -26,9 +27,9 @@ class BuildListCategory extends StatelessWidget {
             width: double.infinity,
             imageUrl: '${model.image}',
             progressIndicatorBuilder: (context, url, progress) =>
-            const Center(
+             Center(
               child: CircularProgressIndicator(
-                color: Colors.blue,
+                color: baseColor,
               ),
             ),
             errorWidget: (context, url, error) =>

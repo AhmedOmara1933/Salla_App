@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shop_app/modules/1.on_boarding/onBoarding_screen.dart';
+import 'package:shop_app/shared/styles/colors.dart';
 import '../shared/cubit/shop_cubit.dart';
 
 class AppRoot extends StatelessWidget {
-
 //final Widget startWidget;
 //const AppRoot({super.key, required this.startWidget});
 
@@ -26,15 +26,15 @@ class AppRoot extends StatelessWidget {
                     ..getCategoryData()
                     ..getSettingsData()
                     ..getFavoritesData()
-                    ..getCartData()
-              ),
+                    ..getCartData()),
             ],
             child: MaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   scaffoldBackgroundColor: Colors.white,
-                  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                  bottomNavigationBarTheme: BottomNavigationBarThemeData(
                     backgroundColor: Colors.white,
+                    selectedItemColor: baseColor,
                     elevation: 100.0,
                     type: BottomNavigationBarType.fixed,
                   ),
@@ -43,6 +43,7 @@ class AppRoot extends StatelessWidget {
                     iconTheme: IconThemeData(
                       color: Colors.black,
                     ),
+                    toolbarHeight: 70.0,
                     systemOverlayStyle: SystemUiOverlayStyle(
                         statusBarIconBrightness: Brightness.dark,
                         systemNavigationBarColor: Colors.white,
@@ -52,7 +53,6 @@ class AppRoot extends StatelessWidget {
                 ),
                 home: OnBoardingScreen()),
           );
-        }
-        );
+        });
   }
 }

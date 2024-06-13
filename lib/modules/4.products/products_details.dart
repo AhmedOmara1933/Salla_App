@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
+import 'package:shop_app/shared/styles/colors.dart';
 import '../../models/3.home_model.dart';
 import '../../models/4.category_model.dart';
 
@@ -59,9 +60,9 @@ class ProductsDetails extends StatelessWidget {
                         //fit: BoxFit.cover,
                         imageUrl: '${products.image}',
                         progressIndicatorBuilder: (context, url, progress) =>
-                            const Center(
+                             Center(
                           child: CircularProgressIndicator(
-                            color: Colors.blue,
+                            color:baseColor,
                           ),
                         ),
                         errorWidget: (context, url, error) =>
@@ -142,9 +143,9 @@ class ProductsDetails extends StatelessWidget {
                             child: CachedNetworkImage(
                               imageUrl: '${products.images![index]}',
                               progressIndicatorBuilder:
-                                  (context, url, progress) => const Center(
+                                  (context, url, progress) => Center(
                                 child: CircularProgressIndicator(
-                                  color: Colors.blue,
+                                  color: baseColor,
                                 ),
                               ),
                               errorWidget: (context, url, error) => Center(
